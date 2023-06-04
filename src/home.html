@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/_head.htm',{
+"title":"Contribution Graph."
+})
+
+<body>
+	<div class="wrapper">
+		<div class="grid__container">
+			<div class="graph">
+				<ul class="days">
+					<li></li>
+					<li>Пн</li>
+					<li></li>
+					<li>Ср</li>
+					<li></li>
+					<li>Пт</li>
+					<li></li>
+					<li></li>
+				</ul>
+				<div class="squares">
+					<div class="info">
+						<p class="info__text">Меньше</p>
+						<div class="info__color" data-level="0">
+							<div class="tooltip">
+								<div class="tooltip__text">No contributions</div>
+							</div>
+						</div>
+						<div class="info__color" data-level="1">
+							<div class="tooltip">
+								<div class="tooltip__text">1-9 contributions</div>
+							</div>
+						</div>
+						<div class="info__color" data-level="2">
+							<div class="tooltip">
+								<div class="tooltip__text">10-19 contributions</div>
+							</div>
+						</div>
+						<div class="info__color" data-level="3">
+							<div class="tooltip">
+								<div class="tooltip__text">20-29 contributions</div>
+							</div>
+						</div>
+						<div class="info__color" data-level="4">
+							<div class="tooltip">
+								<div class="tooltip__text">30+ contributions</div>
+							</div>
+						</div>
+						<p class="info__text">Больше</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
