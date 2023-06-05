@@ -34,29 +34,30 @@ function reverseObject(obj) {
     }
     return reversedObj;
 }
+
 // Получаем текущую дату
 const currentDate = new Date();
-// Вычисляем дату последнего дня (сегодняшнего дня минус 50 недель)
-const startDate = new Date(currentDate.getTime() - (50 * 7 * 24 * 60 * 60 * 1000));
+// Вычисляем дату последнего дня (сегодняшнего дня минус 51 неделя)
+const startDate = new Date(currentDate.getTime() - (51 * 7 * 24 * 60 * 60 * 1000));
 // Создаем таблицу
 const table = document.createElement('table');
 
 let firstMonth = null;
 let previousMonth = null;
 const headerRow = document.createElement('tr');
-for (let i = 0; i < 51; i++) {
+for (let i = 0; i <= 51; i++) {
     const headerCell = document.createElement('th');
     const date = new Date(startDate.getTime() + (i * 7 * 24 * 60 * 60 * 1000));
     const month = date.toLocaleDateString('ru-RU', { month: 'short' })
 
     if (i == 0) { firstMonth = month }
 
-    if (i == 50 && firstMonth == month) {
+    if (i == 51 && firstMonth == month) {
         headerRow.appendChild(headerCell);
         continue
     }
 
-    if (i == 49 && firstMonth == month) {
+    if (i == 50 && firstMonth == month) {
         headerRow.querySelector(`[data-month=${month}]`).textContent = ''
     }
 
@@ -73,10 +74,14 @@ table.appendChild(headerRow);
 // Создаем строки таблицы
 for (let row = 0; row < 7; row++) {
     const tableRow = document.createElement('tr');
-    for (let col = 1; col < 51; col++) {
+    const firstTableCell = document.createElement('td');
+    tableRow.appendChild(firstTableCell);
+
+    for (let col = 1; col <= 51; col++) {
         const tableCell = document.createElement('td');
         tableRow.appendChild(tableCell);
     }
+
     table.appendChild(tableRow);
 }
 
@@ -91,10 +96,15 @@ setDatasOnTable(getDatesOneYearAgo())
 function highlightCellByDate(dateString, level) {
     const targetDate = new Date(dateString);
     const diffInDays = Math.floor((targetDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
-    const column = Math.floor(diffInDays / 7);
+    let column = Math.floor(diffInDays / 7);
     let row = targetDate.getDay();
+
     if (row === 0) {
         row = 7
+    }
+
+    if (row === 1) {
+        column += 1
     }
     // Находим нужную клетку
     const tableCell = document.querySelector('table tr:nth-child(' + (row + 1) + ') td:nth-child(' + (column + 1) + ')');
@@ -161,7 +171,6 @@ function formatDate(dateString) {
 function getDatesOneYearAgo() {
     const currentDate = new Date();
     const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
-
     const dates = {};
     for (let i = 0; i < 365; i++) {
         const date = new Date(oneYearAgo.getTime() + (i * 24 * 60 * 60 * 1000));

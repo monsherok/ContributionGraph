@@ -37,18 +37,20 @@ table tr th {
 table tr td {
     width: var(--square-size);
     height: var(--square-size);
-    background-color: #EDEDED;
+    background-color: transparent;
     position: relative;
-    cursor: pointer;
     transition: all .3s ease;
 
-    &:not([data-level]):hover {
-        border: 1px solid rgba(0, 0, 0, 0.5);
-    }
+    // &:not([data-level]):hover {
+    //     border: 1px solid rgba(0, 0, 0, 0.5);
+    // }
 }
+
+
 
 [data-level] {
     position: relative;
+    cursor: pointer;
 
     &:hover {
         border: 1px solid rgba(0, 0, 0, 0.9);
@@ -58,6 +60,13 @@ table tr td {
             visibility: visible;
             bottom: 22px;
         }
+    }
+}
+
+[data-level="0"] {
+    &:hover {
+        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.5);
     }
 }
 
