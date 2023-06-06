@@ -37,6 +37,7 @@ function reverseObject(obj) {
 
 // Получаем текущую дату
 const currentDate = new Date();
+
 // Вычисляем дату последнего дня (сегодняшнего дня минус 51 неделя)
 const startDate = new Date(currentDate.getTime() - (51 * 7 * 24 * 60 * 60 * 1000));
 // Создаем таблицу
@@ -98,14 +99,19 @@ function highlightCellByDate(dateString, level) {
     const diffInDays = Math.floor((targetDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
     let column = Math.floor(diffInDays / 7);
     let row = targetDate.getDay();
-
+    let currentDay = currentDate.getDay()
+    
     if (row === 0) {
         row = 7
     }
+    if (currentDay === 0) {
+        currentDay = 7
+    }
 
-    if (row === 1) {
+    if (row <= currentDay) {
         column += 1
     }
+
     // Находим нужную клетку
     const tableCell = document.querySelector('table tr:nth-child(' + (row + 1) + ') td:nth-child(' + (column + 1) + ')');
     // Закрашиваем клетку
@@ -168,11 +174,10 @@ function formatDate(dateString) {
     return formattedDate;
 }
 // Получаем все даты на год назад
-function getDatesOneYearAgo() {
-    const currentDate = new Date();
+function getDatesOneYearAgo(currentDay = 0) {
     const oneYearAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
     const dates = {};
-    for (let i = 0; i < 365; i++) {
+    for (let i = 0; i <= 365; i++) {
         const date = new Date(oneYearAgo.getTime() + (i * 24 * 60 * 60 * 1000));
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
